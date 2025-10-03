@@ -1,0 +1,58 @@
+/* Styles pour le composant SearchBar */
+.search-bar {
+  margin-bottom: 2rem;
+}
+
+.search-input-container {
+  position: relative;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.search-input {
+  width: 100%;
+  padding: 1rem 3rem 1rem 1rem;
+  border: 2px solid #e1e8ed;
+  border-radius: 12px;
+  font-size: 1rem;
+  background-color: white;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.search-input::placeholder {
+  color: #a0aec0;
+}
+
+.search-icon {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+  color: #a0aec0;
+  pointer-events: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .search-input-container {
+    max-width: 100%;
+  }
+  
+  .search-input {
+    padding: 0.8rem 2.5rem 0.8rem 0.8rem;
+    font-size: 0.9rem;
+  }
+  
+  .search-icon {
+    right: 0.8rem;
+    font-size: 1rem;
+  }
+}
