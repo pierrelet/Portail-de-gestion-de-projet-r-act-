@@ -1,9 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { User } from '../types';
 import './UserCard.css';
 
-const UserCard = ({ user }) => {
-  const getProfileImage = (userId) => {
+interface UserCardProps {
+  user: User;
+}
+
+const UserCard: React.FC<UserCardProps> = ({ user }) => {
+  const getProfileImage = (userId: number): string => {
     const imageNumber = ((userId - 1) % 10) + 1;
     return `/src/assets/Images/${imageNumber}.jpg`;
   };
@@ -18,8 +23,12 @@ const UserCard = ({ user }) => {
               alt={`Photo de profil de ${user.name}`}
               className="user-avatar-img"
               onError={(e) => {
-                e.target.style.display = 'none';
-                e.target.nextSibling.style.display = 'flex';
+                const target = e.target as HTMLImageElement;
+                target.style.display = 'none';
+                const fallback = target.nextSibling as HTMLElement;
+                if (fallback) {
+                  fallback.style.display = 'flex';
+                }
               }}
             />
             <div className="user-avatar-fallback">

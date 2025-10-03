@@ -1,7 +1,17 @@
 import React from 'react';
 import './SearchBar.css';
 
-const SearchBar = ({ searchTerm, onSearchChange, placeholder = "Rechercher un utilisateur..." }) => {
+interface SearchBarProps {
+  searchTerm: string;
+  onSearchChange: (value: string) => void;
+  placeholder?: string;
+}
+
+const SearchBar: React.FC<SearchBarProps> = ({ 
+  searchTerm, 
+  onSearchChange, 
+  placeholder = "Rechercher un utilisateur..." 
+}) => {
   return (
     <div className="search-bar">
       <div className="search-input-container">

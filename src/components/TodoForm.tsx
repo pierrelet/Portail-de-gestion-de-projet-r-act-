@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
+import { TodoFormData } from '../types';
 import './TodoForm.css';
 
-const TodoForm = ({ userId, onSubmit }) => {
-  const [title, setTitle] = useState('');
-  const [error, setError] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
+interface TodoFormProps {
+  userId: number;
+  onSubmit: (todoData: TodoFormData) => Promise<void>;
+}
 
-  const validateForm = () => {
+const TodoForm: React.FC<TodoFormProps> = ({ userId, onSubmit }) => {
+  const [title, setTitle] = useState<string>('');
+  const [error, setError] = useState<string>('');
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+
+  const validateForm = (): boolean => {
     if (!title.trim()) {
       setError('Le titre de la tâche est obligatoire');
       return false;
@@ -19,7 +25,7 @@ const TodoForm = ({ userId, onSubmit }) => {
     return true;
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     
     if (!validateForm()) {
@@ -29,7 +35,7 @@ const TodoForm = ({ userId, onSubmit }) => {
     setIsSubmitting(true);
     
     try {
-      const newTodo = {
+      const newTodo: TodoFormData = {
         userId: userId,
         title: title.trim(),
         completed: false
@@ -45,7 +51,7 @@ const TodoForm = ({ userId, onSubmit }) => {
     }
   };
 
-  const handleTitleChange = (e) => {
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setTitle(e.target.value);
     if (error) {
       setError('');

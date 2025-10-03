@@ -1,7 +1,11 @@
 import React from 'react';
 import './Loader.css';
 
-const Loader = ({ message = "Chargement..." }) => {
+interface LoaderProps {
+  message?: string;
+}
+
+const Loader: React.FC<LoaderProps> = ({ message = "Chargement..." }) => {
   return (
     <div className="loader-container">
       <div className="loader-spinner"></div>

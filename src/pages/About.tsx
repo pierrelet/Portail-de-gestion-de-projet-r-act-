@@ -3,7 +3,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import './About.css';
 
-const About = () => {
+const About: React.FC = () => {
   return (
     <div className="about-page">
       <Header />

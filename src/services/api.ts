@@ -1,6 +1,8 @@
+import { User, Todo, TodoFormData } from '../types';
+
 const BASE_URL = 'https://jsonplaceholder.typicode.com';
 
-export const fetchUsers = async () => {
+export const fetchUsers = async (): Promise<User[]> => {
   try {
     const response = await fetch(`${BASE_URL}/users`);
     if (!response.ok) {
@@ -13,7 +15,7 @@ export const fetchUsers = async () => {
   }
 };
 
-export const fetchUserById = async (userId) => {
+export const fetchUserById = async (userId: number): Promise<User> => {
   try {
     const response = await fetch(`${BASE_URL}/users/${userId}`);
     if (!response.ok) {
@@ -26,7 +28,7 @@ export const fetchUserById = async (userId) => {
   }
 };
 
-export const fetchTodosByUserId = async (userId) => {
+export const fetchTodosByUserId = async (userId: number): Promise<Todo[]> => {
   try {
     const response = await fetch(`${BASE_URL}/todos?userId=${userId}`);
     if (!response.ok) {
@@ -39,7 +41,7 @@ export const fetchTodosByUserId = async (userId) => {
   }
 };
 
-export const createTodo = async (todoData) => {
+export const createTodo = async (todoData: TodoFormData): Promise<Todo> => {
   try {
     const response = await fetch(`${BASE_URL}/todos`, {
       method: 'POST',
@@ -60,7 +62,7 @@ export const createTodo = async (todoData) => {
   }
 };
 
-export const updateTodo = async (todoId, todoData) => {
+export const updateTodo = async (todoId: number, todoData: Partial<Todo>): Promise<Todo> => {
   try {
     const response = await fetch(`${BASE_URL}/todos/${todoId}`, {
       method: 'PUT',
@@ -81,7 +83,7 @@ export const updateTodo = async (todoId, todoData) => {
   }
 };
 
-export const deleteTodo = async (todoId) => {
+export const deleteTodo = async (todoId: number): Promise<boolean> => {
   try {
     const response = await fetch(`${BASE_URL}/todos/${todoId}`, {
       method: 'DELETE',

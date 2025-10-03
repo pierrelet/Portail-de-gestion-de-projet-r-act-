@@ -6,7 +6,7 @@ import UserDetail from './pages/UserDetail';
 import About from './pages/About';
 import './App.css';
 
-function App() {
+const App: React.FC = () => {
   return (
     <ThemeProvider>
       <Router>
@@ -27,6 +27,6 @@ function App() {
       </Router>
     </ThemeProvider>
   );
-}
+};
 
 export default App;

@@ -1,8 +1,14 @@
 import React from 'react';
 import UserCard from './UserCard';
+import { User } from '../types';
 import './UserList.css';
 
-const UserList = ({ users, searchTerm }) => {
+interface UserListProps {
+  users: User[];
+  searchTerm: string;
+}
+
+const UserList: React.FC<UserListProps> = ({ users, searchTerm }) => {
   const filteredUsers = users.filter(user => 
     user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||

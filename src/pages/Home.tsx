@@ -5,16 +5,17 @@ import UserList from '../components/UserList';
 import Loader from '../components/Loader';
 import Footer from '../components/Footer';
 import { fetchUsers } from '../services/api';
+import { User } from '../types';
 import './Home.css';
 
-const Home = () => {
-  const [users, setUsers] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+const Home: React.FC = () => {
+  const [users, setUsers] = useState<User[]>([]);
+  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string>('');
 
   useEffect(() => {
-    const loadUsers = async () => {
+    const loadUsers = async (): Promise<void> => {
       try {
         setLoading(true);
         setError('');
@@ -31,7 +32,7 @@ const Home = () => {
     loadUsers();
   }, []);
 
-  const handleSearchChange = (value) => {
+  const handleSearchChange = (value: string): void => {
     setSearchTerm(value);
   };
 

@@ -7,28 +7,29 @@ import TodoForm from '../components/TodoForm';
 import Loader from '../components/Loader';
 import Footer from '../components/Footer';
 import { fetchUserById, fetchTodosByUserId, createTodo, updateTodo } from '../services/api';
+import { User, Todo, TodoFormData } from '../types';
 import './UserDetail.css';
 
-const UserDetail = () => {
-  const { userId } = useParams();
+const UserDetail: React.FC = () => {
+  const { userId } = useParams<{ userId: string }>();
   const navigate = useNavigate();
   
-  const [user, setUser] = useState(null);
-  const [todos, setTodos] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
-  const [showAddForm, setShowAddForm] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
+  const [todos, setTodos] = useState<Todo[]>([]);
+  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string>('');
+  const [showAddForm, setShowAddForm] = useState<boolean>(false);
 
   useEffect(() => {
-    const loadUserData = async () => {
+    const loadUserData = async (): Promise<void> => {
       try {
         setLoading(true);
         setError('');
         
         const [userData, todosData] = await Promise.all([
-          fetchUserById(userId),
-          fetchTodosByUserId(userId)
+          fetchUserById(Number(userId)),
+          fetchTodosByUserId(Number(userId))
         ]);
         
         setUser(userData);
@@ -46,11 +47,11 @@ const UserDetail = () => {
     }
   }, [userId]);
 
-  const handleSearchChange = (value) => {
+  const handleSearchChange = (value: string): void => {
     setSearchTerm(value);
   };
 
-  const handleToggleComplete = async (todoId, completed) => {
+  const handleToggleComplete = async (todoId: number, completed: boolean): Promise<void> => {
     try {
       await updateTodo(todoId, { completed });
       setTodos(prevTodos => 
@@ -63,11 +64,11 @@ const UserDetail = () => {
     }
   };
 
-  const handleAddTodo = async (newTodo) => {
+  const handleAddTodo = async (newTodo: TodoFormData): Promise<void> => {
     try {
       const createdTodo = await createTodo(newTodo);
       // JSONPlaceholder retourne un ID fictif, on utilise l'ID local
-      const todoWithId = {
+      const todoWithId: Todo = {
         ...createdTodo,
         id: todos.length + 1 // ID temporaire pour l'affichage
       };
@@ -124,8 +125,12 @@ const UserDetail = () => {
               alt={`Photo de profil de ${user.name}`}
               className="user-avatar-large-img"
               onError={(e) => {
-                e.target.style.display = 'none';
-                e.target.nextSibling.style.display = 'flex';
+                const target = e.target as HTMLImageElement;
+                target.style.display = 'none';
+                const fallback = target.nextSibling as HTMLElement;
+                if (fallback) {
+                  fallback.style.display = 'flex';
+                }
               }}
             />
             <div className="user-avatar-large-fallback">

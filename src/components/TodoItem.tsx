@@ -1,8 +1,14 @@
 import React from 'react';
+import { Todo } from '../types';
 import './TodoItem.css';
 
-const TodoItem = ({ todo, onToggleComplete }) => {
-  const handleToggle = () => {
+interface TodoItemProps {
+  todo: Todo;
+  onToggleComplete?: (todoId: number, completed: boolean) => void;
+}
+
+const TodoItem: React.FC<TodoItemProps> = ({ todo, onToggleComplete }) => {
+  const handleToggle = (): void => {
     if (onToggleComplete) {
       onToggleComplete(todo.id, !todo.completed);
     }

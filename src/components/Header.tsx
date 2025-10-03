@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import ThemeToggle from './ThemeToggle';
+import MenuBurger from './MenuBurger';
 import './Header.css';
 
-const Header = () => {
+const Header: React.FC = () => {
   return (
     <header className="header">
       <div className="header-container">
@@ -19,6 +20,7 @@ const Header = () => {
           </Link>
           <ThemeToggle />
         </nav>
+        <MenuBurger />
       </div>
     </header>
   );

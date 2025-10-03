@@ -1,8 +1,15 @@
 import React from 'react';
 import TodoItem from './TodoItem';
+import { Todo } from '../types';
 import './TodoList.css';
 
-const TodoList = ({ todos, searchTerm, onToggleComplete }) => {
+interface TodoListProps {
+  todos: Todo[];
+  searchTerm: string;
+  onToggleComplete?: (todoId: number, completed: boolean) => void;
+}
+
+const TodoList: React.FC<TodoListProps> = ({ todos, searchTerm, onToggleComplete }) => {
   const filteredTodos = todos.filter(todo => 
     todo.title.toLowerCase().includes(searchTerm.toLowerCase())
   );

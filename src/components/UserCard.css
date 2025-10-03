@@ -1,16 +1,36 @@
 /* Styles pour le composant UserCard */
 .user-card {
-  background: var(--bg-secondary);
-  border-radius: 12px;
-  box-shadow: 0 4px 12px var(--shadow);
-  transition: all 0.3s ease;
+  background: var(--gradient-card);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px var(--shadow-card);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--border-light);
+  position: relative;
+  backdrop-filter: blur(10px);
 }
 
 .user-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 25px var(--shadow-hover);
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 40px var(--shadow-hover);
+  border-color: var(--accent-primary);
+}
+
+.user-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.user-card:hover::before {
+  opacity: 1;
 }
 
 .user-card-link {
@@ -20,10 +40,12 @@
 }
 
 .user-card-content {
-  padding: 1.5rem;
+  padding: 2rem;
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1.25rem;
+  position: relative;
+  z-index: 1;
 }
 
 .user-avatar {
